@@ -1,0 +1,37 @@
+    <div class="container">
+        <h1>{{ header }}</h1>
+
+        {{#if todos.length}}
+            <div class="card" style="width: 50rem;">
+                <div class="card-header">
+                    {{ content }}
+                </div>
+                <ul class="list-group list-group-flush">
+                    {{#each todos}}
+                        <li class="list-group-item">{{ todo }} - 
+                            
+                            {{#if desc}}
+                            {{ desc }} - 
+                            {{/if}}
+
+                            {{#if duration}}
+                            {{ duration }} (часы) - 
+                            {{/if}}
+                            <div class="btn-group" role="group">
+                                <a href="/todos/{{ id }}" class="btn btn-light btn-sm" role="button">Перейти</a>
+                                <a href="/todos/edit/{{ id }}" class="btn btn-light btn-sm" role="button">Изменить</a>
+                                <a href="/todos/delete/{{ id }}" class="btn btn-light btn-sm" role="button">Удалить</a>
+                                <button class="btn btn-light btn-sm cart-remove" data-id="{{ id }}">-</button>
+                                <button class="btn btn-light btn-sm cart-add" data-id="{{ id }}">+<span class="badge text-bg-secondary cart-add"></span></button>
+                            </div>
+                            
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+          {{else}}
+            <p>Доступных дел нет. </p>
+        {{/if}}
+
+        
+    </div>

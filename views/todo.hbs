@@ -1,0 +1,24 @@
+    <div class="container">
+        <h1>{{ todo }}</h1>
+
+        {{#if desc}}
+        <p>{{ desc }}</p>
+        {{else}}
+        <p></p>
+        {{/if}}
+
+        {{#if duration}}
+        <p>{{ duration }} (часы)</p>
+        {{else}}
+        <p></p>
+        {{/if}}
+
+        <nav class="nav">
+            <div class="btn-group" role="group">
+                <a class="btn btn-light btn-sm" href="/todos/edit/{{ id }}" role="button">Изменить</a>
+                <a class="btn btn-light btn-sm" href="/todos/delete/{{ id }}" role="button">Удалить</a>
+                <a class="btn btn-light btn-sm" href="/todos" role="button">Список</a>
+            </div>
+        </nav>
+    </div>
+    

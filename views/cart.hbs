@@ -1,0 +1,45 @@
+<div class="container">
+    <h1>{{ header }}</h1>
+
+    {{#if cart.todos.length}}
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Длительность</th>
+                    <th scope="col">Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each cart.todos}}
+                <tr>
+                    <th scope="row">{{ index }}</th>
+                    <td>{{ todo.todo }}</td>
+                    <td>{{ todo.desc }}</td>
+                    <td>{{ duration }}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-light btn-sm cart-remove" data-id="{{ todo.id }}">-</button>
+                            <button class="btn btn-light btn-sm cart-add" data-id="{{ todo.id }}">+<span class="badge text-bg-secondary cart-add">{{ quantity }}</span></button>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <th scope="row">Итого:</th>
+                    <td></td>
+                    <td></td>
+                    <td>{{ cart.totalDuration }}</td>
+                    <td>{{ cart.totalQuantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+    {{else}}
+        <p>Корзина пуста.</p>
+    {{/if}}
+    </div>
+    
+</div>
