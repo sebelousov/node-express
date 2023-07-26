@@ -7,7 +7,7 @@
                 {{#if todo}}
                 <input type="hidden" name="id" value="{{ id }}" />
                 <label for="todo" class="form-label">Заголовок:</label>
-                <input type="text" name="todo" class="form-control" id="todo" aria-describedby="header" value="{{ todo }}" required />
+                <input type="text" name="title" class="form-control" id="title" aria-describedby="title" value="{{ title }}" required />
                 
                 <label for="desc" class="form-label">Описание:</label>
                 <textarea class="form-control" name="desc" aria-label="With textarea">{{ desc }}</textarea>
@@ -17,7 +17,7 @@
                 
                 {{else}}
                 <label for="todo" class="form-label">Заголовок:</label>
-                <input type="text" name="todo" class="form-control" id="todo" aria-describedby="header" required>
+                <input type="text" name="title" class="form-control" id="title" aria-describedby="title" required>
                 
                 <label for="desc" class="form-label">Описание:</label>
                 <textarea class="form-control" name="desc" aria-label="With textarea"></textarea>

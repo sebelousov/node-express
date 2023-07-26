@@ -1,9 +1,10 @@
-const Todo = require('../entity/Todo')
-const DAO = require('../dao/DAO')
-const { Router } = require('express')
+const {
+    saveTodo,
+    updateTodoById
+} = require('../controller/todo-controller')
 
+const { Router } = require('express')
 const router = Router()
-const dao = new DAO('add', 'data.json')
 
 router.get('/', (req, res) => {
     res.render('add', {
@@ -14,18 +15,17 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', async (req, res) => {
-    const todo = new Todo(
-            req.body.id, 
-            req.body.todo, 
-            req.body.desc, 
-            req.body.duration
-        ).toJSON()
+router.post('/', (req, res) => {
+    const todo = {
+        title: req.body.title, 
+        desc: req.body.desc, 
+        duration: req.body.duration
+    }
 
     if (!req.body.id) {
-        await dao.saveTodo(todo)
+        saveTodo(todo)
     } else {
-        await dao.updateTodo(todo)
+        updateTodoById(req.body.id, todo)
     }
     
     res.redirect('/todos')
