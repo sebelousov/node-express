@@ -3,17 +3,18 @@ const Todo = require('../model/Todo')
 const getAllTodos = () => {
     return Todo
         .find()
+        .lean()
         .then((todos) => {
-            return todos   
+            return JSON.stringify(todos)
         })
         .catch((err) => console.log(err))
 }
 
 const getTodoById = (id) => {
-    Todo
+    return Todo
         .findById(id)
         .then((todo) => {
-            return todo
+            return JSON.stringify(todo)
         })
         .catch((err) => console.log(err))
 }
@@ -40,8 +41,9 @@ const updateTodoById = (id, todo) => {
 
 const deleteTodoById = (id) => {
     Todo
-        .findByIdAndDelete(req.params.id)
+        .findByIdAndDelete(id)
         .then((result) => {
+            
             return result
         })
         .catch((err) => console.log(err))

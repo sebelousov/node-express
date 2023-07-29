@@ -4,8 +4,8 @@
 
         <form action="/add" method="POST" novalidate>
             <div class="mb-3">
-                {{#if todo}}
-                <input type="hidden" name="id" value="{{ id }}" />
+                {{#if _id}}
+                <input type="hidden" name="id" value="{{ _id }}" />
                 <label for="todo" class="form-label">Заголовок:</label>
                 <input type="text" name="title" class="form-control" id="title" aria-describedby="title" value="{{ title }}" required />
                 

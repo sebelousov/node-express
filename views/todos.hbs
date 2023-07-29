@@ -18,11 +18,11 @@
                             {{ duration }} (часы) - 
                             {{/if}}
                             <div class="btn-group" role="group">
-                                <a href="/todos/{{ id }}" class="btn btn-light btn-sm" role="button">Перейти</a>
-                                <a href="/todos/edit/{{ id }}" class="btn btn-light btn-sm" role="button">Изменить</a>
-                                <a href="/todos/delete/{{ id }}" class="btn btn-light btn-sm" role="button">Удалить</a>
-                                <button class="btn btn-light btn-sm cart-remove" data-id="{{ id }}">-</button>
-                                <button class="btn btn-light btn-sm cart-add" data-id="{{ id }}">+<span class="badge text-bg-secondary cart-add"></span></button>
+                                <a href="/todos/{{ _id }}" class="btn btn-light btn-sm" role="button">Перейти</a>
+                                <a href="/todos/edit/{{ _id }}" class="btn btn-light btn-sm" role="button">Изменить</a>
+                                <a href="/todos/delete/{{ _id }}" class="btn btn-light btn-sm" role="button">Удалить</a>
+                                <button class="btn btn-light btn-sm cart-remove" data-id="{{ _id }}">-</button>
+                                <button class="btn btn-light btn-sm cart-add" data-id="{{ _id }}">+<span class="badge text-bg-secondary cart-add"></span></button>
                             </div>
                             
                         </li>
