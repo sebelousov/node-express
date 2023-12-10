@@ -1,6 +1,4 @@
-const mongoose = require('mongoose')
-
-const Schema = mongoose.Schema
+const { Schema, model } = require('mongoose')
 
 const userSchema = new Schema({
     nick: {
@@ -14,9 +12,48 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    cart: {
+        items: [
+            {
+                count: {
+                    type: Number,
+                    required: true,
+                    default: 1
+                },
+                todoId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Todo',
+                    required: true
+                }
+            }
+        ]
     }
 })
 
-const User = mongoose.model('User', userSchema)
+userSchema.methods.getCartTodos = function () {
+    return [...this.cart.items]
+}
 
-module.exports = User
+userSchema.methods.addToCart = function (todo) {
+    const items = [...this.cart.items]
+    
+    const index = items.findIndex(t => {
+        return t.todoId.toString() === todo._id.toString()
+    })
+    
+    if (index >= 0) {
+        items[index].count++
+    } else {
+        items.push({
+            count: 1, 
+            todoId: todo._id
+        })
+    }
+
+    this.cart = {items}
+    
+    return this.save()
+}
+
+module.exports = model('User', userSchema)

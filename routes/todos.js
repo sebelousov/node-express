@@ -5,10 +5,7 @@ const {
     deleteTodoById
 } = require('../controller/todo-controller')
 
-const DAO = require('../dao/DAO')
-
 const router = Router()
-const dao = new DAO('todos', 'data.json')
 
 router.get('/', async (req, res) => {
     const todos = JSON.parse(await getAllTodos())

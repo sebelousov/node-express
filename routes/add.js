@@ -19,7 +19,8 @@ router.post('/', (req, res) => {
     const todo = {
         title: req.body.title, 
         desc: req.body.desc, 
-        duration: req.body.duration
+        duration: req.body.duration, 
+        userId: req.user._id
     }
 
     if (!req.body.id) {
