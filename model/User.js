@@ -50,10 +50,38 @@ userSchema.methods.addToCart = function (todo) {
             todoId: todo._id
         })
     }
-
-    this.cart = {items}
     
-    return this.save()
+    this.cart = {items}
+    this.save()
+
+    return index !== -1 ? items[index].count : 1
+}
+
+userSchema.methods.removeTodoFromCart = function (todoId) {
+    const items = [...this.cart.items]
+    
+    const index = items.findIndex(t => t.todoId.toString() === todoId)
+
+    if (index !== -1) {
+        items[index].count--
+        if (items[index].count === 0) {
+            items.splice(index, 1)
+            this.cart = {items}
+            this.save()
+            return 0
+        }
+        this.cart = {items}
+        this.save()
+    }
+
+    return items[index].count
+}
+
+userSchema.methods.isTodoInCart = function (todoId) {
+    const items = [...this.cart.items]
+    const index = items.findIndex(t => t.todoId.toString() === todoId)
+
+    return index !== -1
 }
 
 module.exports = model('User', userSchema)

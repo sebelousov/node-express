@@ -14,7 +14,6 @@ const $card = document.querySelectorAll('tbody, .card').forEach(element => {
     if (element) {
         element.addEventListener('click', async (event) => {
             if (event.target.classList.contains('cart-add')) {
-                console.log(`Add to cart from TodoList id ${event.target.dataset.id ? event.target.dataset.id : event.target.parentElement.dataset.id}`)
                 const node = event.target.classList.contains('badge') ? event.target.parentElement : event.target
                 
                 node.childNodes[1].textContent = await addTodoInCart(node.dataset.id)
@@ -22,7 +21,6 @@ const $card = document.querySelectorAll('tbody, .card').forEach(element => {
             }
         
             if (event.target.classList.contains('cart-remove')) {
-                console.log(`Remove from cart from TodoList id ${event.target.dataset.id}`)
                 const node = event.target.nextSibling.nextSibling
                 const quantity = await removeTodoInCart(node.dataset.id)
                 
@@ -93,8 +91,8 @@ async function fillTableCart() {
                 <th scope="row">Итого:</th>
                 <td></td>
                 <td></td>
-                <td>${cart.totalDuration }</td>
-                <td>${cart.totalQuantity }</td>
+                <td>${ cart.totalDuration }</td>
+                <td>${ cart.totalQuantity }</td>
             </tr>
     `)
 

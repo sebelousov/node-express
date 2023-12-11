@@ -2,19 +2,15 @@ const { Router } = require('express')
 
 const { 
     getAllTodosFromCart,
-    addTodoToCart
+    addTodoToCart,
+    removeTodoFromCart
  } = require('../controller/cart-controller')
 
-const DAO = require('../dao/DAO')
-const Cart = require('../entity/Cart')
-
 const router = Router()
-const dao = new DAO('cart', 'cart.json')
-const cart = new Cart()
 
 router.get('/', async (req, res) => {
     const todos = await getAllTodosFromCart(req.user._id)
-    console.log(todos)
+    
     res.render('cart', {
         title: 'Корзина',
         header: 'Корзина',
@@ -25,12 +21,26 @@ router.get('/', async (req, res) => {
 
 router.get('/all', async (req, res) => {
     const cart = await getAllTodosFromCart(req.user._id)
-    res.json(cart)
+    const cartTodos = cart.todos.map((todo, index) => {
+        return {
+            index: index + 1,
+            todo: todo.todo,
+            desc: todo.desc,
+            quantity: todo.quantity,
+            duration: todo.duration
+        }
+    })
+
+    res.json({
+        cartTodos,
+        totalQuantity: cart.totalQuantity,
+        totalDuration: cart.totalDuration
+    })
 })
 
 router.get('/totalquantity', async (req, res) => {
     const cart = await getAllTodosFromCart(req.user._id)
-    console.log(cart.todos)
+    
     if (cart) {
         const todosQuantity = cart.todos.map((todo) => { 
             return {
@@ -52,12 +62,7 @@ router.get('/totalquantity', async (req, res) => {
 })
 
 router.post('/add/:id', async (req, res) => {
-    const user = await addTodoToCart(req.params.id, req.user._id)
-    const quantity = user
-        .cart
-        .items
-        .filter((i) => i.todoId.toString() === req.params.id)[0]
-        .count
+    const quantity = await addTodoToCart(req.params.id, req.user._id)
 
     res.json({
         quantity
@@ -65,16 +70,11 @@ router.post('/add/:id', async (req, res) => {
 })
 
 router.delete('/remove/:id', async (req, res) => {
-    cart.setCartTodos(await dao.readCart())
-    const todo = await dao.getTodoById(req.params.id)
-    const quantity = cart.getQuantityOfTodoFromCart(todo)
+    const quantity = await removeTodoFromCart(req.params.id, req.user._id)
     
-    if (quantity) {
-        cart.deleteTodo(todo)
-        dao.saveCart(cart.getCartTodos())
-    }
-
-    res.json(cart.getQuantityOfTodoFromCart(todo))
+    res.json({
+        quantity
+    })
 })
 
 module.exports = router

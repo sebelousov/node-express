@@ -39,7 +39,23 @@ const addTodoToCart = async (todoId, userId) => {
     const todo = JSON.parse(await getTodoById(todoId))
     const user = await User.findById(userId)
 
-    return await user.addToCart(todo)
+    if (todo && user) {
+        return await user.addToCart(todo)
+    }
 }
 
-module.exports = { getAllTodosFromCart, addTodoToCart }
+const removeTodoFromCart = async (todoId, userId) => {
+    const user = await User.findById(userId)
+    
+    if (user.isTodoInCart(todoId)) {
+        return await user.removeTodoFromCart(todoId)
+    }
+
+    return 0
+}
+
+module.exports = { 
+    getAllTodosFromCart, 
+    addTodoToCart, 
+    removeTodoFromCart
+}
