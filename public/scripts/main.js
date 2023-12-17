@@ -23,7 +23,6 @@ const $card = document.querySelectorAll('tbody, .card').forEach(element => {
             if (event.target.classList.contains('cart-remove')) {
                 const node = event.target.nextSibling.nextSibling
                 const quantity = await removeTodoInCart(node.dataset.id)
-                
                 if (document.querySelector('.card')) {
                     node.childNodes[1].textContent = quantity !== 0 ? quantity : ''
                 }
@@ -78,8 +77,8 @@ async function fillTableCart() {
                 <td>${todo.duration}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <button class="btn btn-light btn-sm cart-remove" data-id="${todo.todo.id}">-</button>
-                        <button class="btn btn-light btn-sm cart-add" data-id="${todo.todo.id}">+<span class="badge text-bg-secondary">${todo.quantity}</span></button>
+                        <button class="btn btn-light btn-sm cart-remove" data-id="${todo.todo._id}">-</button>
+                        <button class="btn btn-light btn-sm cart-add" data-id="${todo.todo._id}">+<span class="badge text-bg-secondary">${todo.quantity}</span></button>
                     </div>
                 </td>
             </tr>
