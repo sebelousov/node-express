@@ -10,6 +10,7 @@ const aboutRoutes = require('./routes/about')
 const addRoutes = require('./routes/add')
 const cartRoutes = require('./routes/cart')
 const todosRoutes = require('./routes/todos')
+const sheduleRoutes = require('./routes/schedule')
 
 const User = require('./model/User')
 
@@ -44,6 +45,7 @@ app.use('/about', aboutRoutes)
 app.use('/add', addRoutes)
 app.use('/cart', cartRoutes)
 app.use('/todos', todosRoutes)
+app.use('/shedule', sheduleRoutes)
 
 start()
 
