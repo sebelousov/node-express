@@ -16,7 +16,7 @@
             <tbody>
                 {{#each cart.todos}}
                 <tr>
-                    <th scope="row">{{ index }}</th>
+                    <th scope="row">{{ todo.index }}</th>
                     <td>{{ todo.todo }}</td>
                     <td>{{ todo.desc }}</td>
                     <td>{{ duration }}</td>
@@ -37,15 +37,13 @@
                 </tr>
             </tbody>
         </table>
+        <div>
+            <form action="/shedule" method="POST" novalidate>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
     {{else}}
         <p>Корзина пуста.</p>
     {{/if}}
     </div>
-
-    <div>
-        <form action="/shedule" method="POST" novalidate>
-            <button type="submit" class="btn btn-primary">Сохранить</button>
-        </form>
-    </div>
-    
 </div>

@@ -13,31 +13,38 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 const $card = document.querySelectorAll('tbody, .card').forEach(element => {
     if (element) {
         element.addEventListener('click', async (event) => {
-            if (event.target.classList.contains('cart-add')) {
+            const isCartAdd = event.target.classList.contains('cart-add')
+            const isCartRemove = event.target.classList.contains('cart-remove')
+            
+            if (isCartAdd) {
                 const node = event.target.classList.contains('badge') ? event.target.parentElement : event.target
                 
                 node.childNodes[1].textContent = await addTodoInCart(node.dataset.id)
-                updateTotalQuantity()
             }
         
-            if (event.target.classList.contains('cart-remove')) {
+            if (isCartRemove) {
                 const node = event.target.nextSibling.nextSibling
                 const quantity = await removeTodoInCart(node.dataset.id)
                 if (document.querySelector('.card')) {
                     node.childNodes[1].textContent = quantity !== 0 ? quantity : ''
                 }
-                
-                const totalQuantity = await updateTotalQuantity()
-                
-                if (totalQuantity === 0) {
-                    if (document.getElementsByTagName('tbody')[0]) {
-                        document.querySelector('div.container > div').innerHTML = '<p>Корзина пуста.</p>'
-                    }
-                } else {
-                    if (document.getElementsByTagName('tbody')[0]) {
-                        document.querySelector('tbody').innerHTML = await fillTableCart()
-                    }
-                }
+            }
+
+            const totalQuantity = await updateTotalQuantity()
+
+            if (
+                (isCartAdd || isCartRemove) &&
+                totalQuantity === 0 && 
+                document.getElementsByTagName('tbody')[0]
+                ) {
+                document.querySelector('div.container > div').innerHTML = '<p>Корзина пуста.</p>'
+            }
+
+            if (
+                (isCartAdd || isCartRemove) &&
+                document.getElementsByTagName('tbody')[0]
+                ) {
+                document.querySelector('tbody').innerHTML = await fillTableCart()
             }
         })
     }

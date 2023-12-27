@@ -10,20 +10,21 @@ const getAllTodosFromCart = async (userId) => {
                 path: 'cart.items.todoId'
             })
 
-        const todos = user.cart.items.map((item) => {
+        const todos = user.cart.items.map((item, index) => {
             return {
                 todo: {
+                    index: index + 1,
                     todo: item.todoId.title, 
                     desc: item.todoId.desc, 
                     _id: item.todoId._id.toString()
                 },
                 quantity: item.count,
-                duration: item.todoId.duration
+                duration: item.todoId.duration * item.count
             }
         })
 
         const totalQuantity = todos.reduce((sum, item) => sum + item.quantity, 0)
-        const totalDuration = todos.reduce((sum, item) => sum + item.duration * item.quantity, 0)
+        const totalDuration = todos.reduce((sum, item) => sum + item.duration, 0)
         
         return {
             todos: todos, 
